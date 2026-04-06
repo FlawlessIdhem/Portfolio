@@ -8,11 +8,17 @@ import { HiOutlineMail } from "react-icons/hi";
 import { RiNextjsFill } from "react-icons/ri";
 import AnimatedButton from "@/components/AnimatedButton";
 import LightRays from "@/components/LightRays";
+import HeroRevealPortrait from "@/components/HeroRevealPortrait";
+import Link from "next/link";
+import emailjs from "@emailjs/browser";
 
 type Project = {
   title: string;
   category: string;
   description: string;
+  logo: string;
+  slug: string;
+  background?: string;
 };
 
 type Skill = {
@@ -21,24 +27,32 @@ type Skill = {
   code: ReactNode;
 };
 
-const projects: Project[] = [
+ const projects: Project[] = [
   {
-    title: "Nexora",
-    category: "Web Platform",
-    description: "A premium digital platform with immersive interactions.",
+    title: "LOST",
+    category: "Video game",
+    description: "A project with a bold visual identity and immersive direction.",
+    logo: "/projects/Lost.png",
+    slug: "lost",
+    background: "/projects/LostHome.png",
   },
   {
-    title: "FlowPro",
-    category: "Mobile App",
-    description: "A productivity app focused on minimal design and usability.",
+    title: "Coming Soon",
+    category: "Project Concept",
+    description: "A new project currently in development and not yet revealed.",
+    logo: "/projects/Coming.png",
+    slug: "coming-soon",
+    background: "",
   },
   {
-    title: "Aurora Studio",
-    category: "Branding & Web",
-    description: "Brand identity and website for a creative agency.",
+    title: "AC Casablanca",
+    category: "Football Club",
+    description: "A branded project with a strong identity and recognizable presence.",
+    logo: "/projects/AC_Casablanca.png",
+    slug: "ac-casablanca",
+    background: "",
   },
 ];
-
 const skills: Skill[] = [
   {
     name: "HTML",
@@ -269,10 +283,20 @@ const skills: Skill[] = [
 ];
 
 function ProjectsCarousel() {
-  const [activeIndex, setActiveIndex] = useState(0);
+  const [activeIndex, setActiveIndex] = useState<number | null>(null);
+  
 
   return (
-    <section id="projects" className="py-24">
+    <motion.section
+  id="projects"
+  className="relative w-full py-24"
+  initial={{ opacity: 0, y: 30 }}
+  whileInView={{ opacity: 1, y: 0 }}
+  viewport={{ once: true, amount: 0.2 }}
+  transition={{ duration: 1, ease: "easeOut" }}
+>
+
+  <div className="relative z-10 mx-auto max-w-7xl px-6">
       <div className="mb-12">
         <p className="mb-3 text-sm uppercase tracking-[0.3em] text-white/40">
           Work Collection
@@ -282,7 +306,7 @@ function ProjectsCarousel() {
 
       <div className="relative mx-auto flex h-[560px] items-center justify-center overflow-hidden">
         {projects.map((project, index) => {
-          let offset = index - activeIndex;
+          let offset = activeIndex === null ? index : index - activeIndex;
 
           if (offset > projects.length / 2) offset -= projects.length;
           if (offset < -projects.length / 2) offset += projects.length;
@@ -332,19 +356,12 @@ function ProjectsCarousel() {
                     : "border-white/6 bg-white/[0.03] shadow-[0_20px_60px_rgba(0,0,0,0.12)]"
                 }`}
               >
-                <div className="h-56 bg-[linear-gradient(180deg,rgba(255,255,255,0.08),rgba(255,255,255,0.02))] p-5">
-                  <div className="mb-4 flex items-center gap-2">
-                    <span className="h-2.5 w-2.5 rounded-full bg-white/20" />
-                    <span className="h-2.5 w-2.5 rounded-full bg-white/10" />
-                    <span className="h-2.5 w-2.5 rounded-full bg-white/10" />
-                  </div>
-
-                  <div className="rounded-[18px] border border-white/6 bg-black/10 p-4">
-                    <div className="mb-3 h-24 rounded-[14px] bg-white/5" />
-                    <div className="mb-2 h-2.5 w-2/3 bg-white/10" />
-                    <div className="mb-2 h-2.5 w-1/2 bg-white/10" />
-                    <div className="h-2.5 w-1/3 bg-white/10" />
-                  </div>
+                <div className="h-60 bg-[linear-gradient(180deg,rgba(255,255,255,0.08),rgba(255,255,255,0.02))] p-0">
+                  <img
+                    src={project.logo}
+                    alt={`${project.title} logo`}
+                    className="h-full w-full object-cover"
+                  />
                 </div>
 
                 <div className="p-6">
@@ -352,7 +369,7 @@ function ProjectsCarousel() {
                     {project.category}
                   </p>
 
-                  <h3 className="mb-3 text-3xl text-white/95">{project.title}</h3>
+                  <h3 className="mb-3 text-2xl text-white/95">{project.title}</h3>
 
                   <p className="mb-6 leading-7 text-white/50">
                     {project.description}
@@ -361,6 +378,7 @@ function ProjectsCarousel() {
                   <AnimatedButton text="View Case Study" variant="ghost" />
                 </div>
               </div>
+              
             </motion.div>
           );
         })}
@@ -378,7 +396,8 @@ function ProjectsCarousel() {
           />
         ))}
       </div>
-    </section>
+      </div>
+    </motion.section>
   );
 }
 
@@ -508,7 +527,14 @@ const startMomentum = () => {
 };
 
   return (
-    <section id="skills" className="py-24">
+    <motion.section
+      id="skills"
+      className="py-24"
+      initial={{ opacity: 0, y: 30 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true, amount: 0.2 }}
+      transition={{ duration: 1, ease: "easeOut" }}
+    >
       <div className="mb-12">
         <p className="mb-3 text-sm uppercase tracking-[0.3em] text-white/40">
           Tools & Stack
@@ -614,7 +640,7 @@ const startMomentum = () => {
           </div>
         </div>
       </div>
-    </section>
+    </motion.section>
   );
 }
 
@@ -709,6 +735,37 @@ function HeroPreviewCard() {
 
 
 export default function Home() {
+  const formRef = useRef<HTMLFormElement>(null);
+const [sending, setSending] = useState(false);
+const [status, setStatus] = useState("");
+
+const sendEmail = async (e: React.FormEvent<HTMLFormElement>) => {
+  e.preventDefault();
+
+  if (!formRef.current) return;
+
+  setSending(true);
+  setStatus("");
+
+  try {
+    await emailjs.sendForm(
+      "service_brpsh23",
+      "template_uz6ry8q",
+      formRef.current,
+      {
+        publicKey: "ezE9wtlP82EB7ly07",
+      }
+    );
+
+    setStatus("Message sent successfully.");
+    formRef.current.reset();
+  } catch (error) {
+    setStatus("Failed to send message.");
+    console.error(error);
+  } finally {
+    setSending(false);
+  }
+};
   return (
     <main className="min-h-screen bg-transparent text-[var(--text-main)]">
       <section className="relative h-screen overflow-hidden">
@@ -748,7 +805,7 @@ export default function Home() {
             </a>
 
             <a
-              href="https://github.com/your-github"
+              href="https://github.com/FlawlessIdhem"
               target="_blank"
               rel="noreferrer"
               className="flex h-10 w-10 items-center justify-center rounded-full border border-white/10 bg-white/5 text-white/65 transition hover:bg-white/10 hover:text-white"
@@ -757,7 +814,9 @@ export default function Home() {
             </a>
 
             <a
-              href="mailto:your@email.com"
+              href="https://mail.google.com/mail/?view=cm&fs=1&to=farismehdi123@gmail.com"
+              target="_blank"
+              rel="noreferrer"
               className="flex h-10 w-10 items-center justify-center rounded-full border border-white/10 bg-white/5 text-white/65 transition hover:bg-white/10 hover:text-white"
             >
               <HiOutlineMail size={16} />
@@ -768,9 +827,13 @@ export default function Home() {
         {/* Content */}
         <div className="relative z-10 mx-auto flex h-full max-w-7xl flex-col px-6 pt-8 md:px-8 md:pl-28">
           <header className="mb-16 flex items-center justify-between">
-            <div className="text-[38px] font-light tracking-tight text-white/95">
-              Mehdi<span className="text-white/55">.</span>
-            </div>
+            <Link href="/" className="flex items-center">
+            <img
+              src="/logo.png"
+              alt="El Mehdi Faris logo"
+              className="h-12 w-auto"
+            />
+          </Link>
 
             <nav className="hidden items-center gap-10 text-[12px] text-white/70 md:flex">
               {[
@@ -805,7 +868,12 @@ export default function Home() {
             id="home"
             className="grid flex-1 items-start gap-12 pt-8 md:grid-cols-2 md:pt-12"
           >
-            <div className="max-w-lg">
+            <motion.div
+              className="max-w-lg"
+              initial={{ opacity: 0, y: 24 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 1, ease: "easeOut" }}
+            >
               <p className="mb-4 text-[12px] uppercase tracking-[0.28em] text-white/45">
                 Full-Stack Developer
               </p>
@@ -832,70 +900,88 @@ export default function Home() {
                   variant="ghost"
                 />
               </div>
-            </div>
+            </motion.div>
 
             <div className="flex h-full items-end justify-center md:justify-end">
-              <div className="relative h-[460px] w-full max-w-[360px] md:h-[520px] md:max-w-[390px]">
-                <img
-                  src="/me.png"
-                  alt="Portrait"
-                  className="absolute bottom-[190px] left-1/2 w-[100%] max-w-none -translate-x-1/2"
-                />
+            <div className="relative h-[460px] w-full max-w-[360px] md:h-[520px] md:max-w-[390px]">
+              <HeroRevealPortrait
+                baseImage="/me.png"
+                revealImage="/anony.png"
+              />
 
-                <div className="absolute bottom-[190px] left-1/3 h-px w-[480px] -translate-x-1/2 bg-white opacity-60" />
+              <div className="absolute bottom-[190px] left-1/3 h-px w-[480px] -translate-x-1/2 bg-white opacity-60" />
 
-                <img
-                  src="/signature.png"
-                  alt="Signature"
-                  className="absolute bottom-[180px] left-1/2 w-[110px] -translate-x-[320px] opacity-50"
-                />
-              </div>
+              <img
+                src="/signature.png"
+                alt="Signature"
+                className="absolute bottom-[180px] left-1/2 w-[110px] -translate-x-[320px] opacity-50"
+              />
             </div>
+          </div>
           </section>
         </div>
       </section>
 
-      <section className="relative z-10">
-        <div className="mx-auto max-w-7xl px-6 md:px-8 md:pl-28">
-          <ProjectsCarousel />
-          <SkillsCarousel />
+      <ProjectsCarousel />
 
-          <section
-            id="contact"
-            className="mb-20 grid gap-8 rounded-[32px] border border-white/8 bg-white/[0.04] p-8 md:grid-cols-2"
-          >
-            <div>
-              <p className="mb-3 text-sm uppercase tracking-[0.3em] text-white/45">
-                Contact
-              </p>
-              <h2 className="mb-6 text-4xl leading-tight text-white/95">
-                Let&apos;s create something great together.
-              </h2>
-              <p className="max-w-lg text-lg leading-8 text-white/55">
-                Available for freelance work, collaborations, and interesting
-                opportunities.
-              </p>
-            </div>
+<section className="relative z-10">
+  <div className="mx-auto max-w-7xl px-6 md:px-8 md:pl-28">
+    <SkillsCarousel />
+    <div className="mb-12">
+  <p className="mb-3 text-sm uppercase tracking-[0.3em] text-white/40">
+    Get In Touch
+  </p>
+  <h2 className="text-4xl text-white/95 md:text-5xl">Contact Me</h2>
+</div>
+   <motion.section
+  id="contact"
+  className="mb-20 grid gap-8 rounded-[32px] border border-white/8 bg-white/[0.04] p-8 md:grid-cols-2"
+  initial={{ opacity: 0, y: 30 }}
+  whileInView={{ opacity: 1, y: 0 }}
+  viewport={{ once: true, amount: 0.2 }}
+  transition={{ duration: 1, ease: "easeOut" }}
+>
+  <div>
+    <h3 className="mb-6 text-4xl leading-tight text-white/95">
+      Let&apos;s create something great together.
+    </h3>
+    <p className="max-w-lg text-lg leading-8 text-white/55">
+      Available for freelance work, collaborations, and interesting
+      opportunities.
+    </p>
+  </div>
 
-            <form className="grid gap-4">
-              <input
-                type="text"
-                placeholder="Your name"
-                className="rounded-none border border-white/10 bg-black/10 px-5 py-4 outline-none placeholder:text-white/35"
-              />
-              <input
-                type="email"
-                placeholder="Your email"
-                className="rounded-none border border-white/10 bg-black/10 px-5 py-4 outline-none placeholder:text-white/35"
-              />
-              <textarea
-                placeholder="Your message"
-                rows={5}
-                className="rounded-none border border-white/10 bg-black/10 px-5 py-4 outline-none placeholder:text-white/35"
-              />
-              <AnimatedButton text="Send Message" variant="solid" />
-            </form>
-          </section>
+  <form ref={formRef} onSubmit={sendEmail} className="grid gap-4">
+    <input
+      type="text"
+      name="user_name"
+      placeholder="Your name"
+      required
+      className="rounded-none border border-white/10 bg-black/10 px-5 py-4 outline-none placeholder:text-white/35"
+    />
+    <input
+      type="email"
+      name="user_email"
+      placeholder="Your email"
+      required
+      className="rounded-none border border-white/10 bg-black/10 px-5 py-4 outline-none placeholder:text-white/35"
+    />
+    <textarea
+      name="message"
+      placeholder="Your message"
+      rows={5}
+      required
+      className="rounded-none border border-white/10 bg-black/10 px-5 py-4 outline-none placeholder:text-white/35"
+    />
+    <AnimatedButton
+  text={sending ? "Sending..." : "Send Message"}
+  variant="solid"
+  type="submit"
+/>
+
+    {status && <p className="text-sm text-white/70">{status}</p>}
+  </form>
+</motion.section>
         </div>
       </section>
     </main>

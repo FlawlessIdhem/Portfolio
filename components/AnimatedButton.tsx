@@ -4,6 +4,7 @@ type AnimatedButtonProps = {
   onClick?: () => void;
   className?: string;
   variant?: "solid" | "ghost";
+  type?: "button" | "submit" | "reset";
 };
 
 export default function AnimatedButton({
@@ -12,6 +13,7 @@ export default function AnimatedButton({
   onClick,
   className = "",
   variant = "solid",
+  type = "button",
 }: AnimatedButtonProps) {
   const chars = text.split("");
 
@@ -41,7 +43,7 @@ export default function AnimatedButton({
   }
 
   return (
-    <button type="button" onClick={onClick} className={classes}>
+    <button type={type} onClick={onClick} className={classes}>
       {content}
     </button>
   );
