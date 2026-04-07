@@ -11,6 +11,7 @@ import LightRays from "@/components/LightRays";
 import HeroRevealPortrait from "@/components/HeroRevealPortrait";
 import Link from "next/link";
 import emailjs from "@emailjs/browser";
+import EducationExperienceSection from "@/components/EducationExperienceSection";
 
 type Project = {
   title: string;
@@ -67,7 +68,7 @@ const skills: Skill[] = [
         </div>
         <div className="pl-6">
           <span className="text-[#c97b6c]">&lt;h1&gt;</span>
-          <span className="text-white/80">Luxury Portfolio</span>
+          <span className="text-white/80">El Mehdi Faris</span>
           <span className="text-[#c97b6c]">&lt;/h1&gt;</span>
         </div>
         <div className="pl-6">
@@ -767,7 +768,7 @@ const sendEmail = async (e: React.FormEvent<HTMLFormElement>) => {
   }
 };
   return (
-    <main className="min-h-screen bg-transparent text-[var(--text-main)]">
+    <main className="min-h-screen overflow-x-hidden bg-transparent text-[var(--text-main)]">
       <section className="relative h-screen overflow-hidden">
         {/* Full first-screen rays */}
         <div className="absolute inset-0 z-[1]">
@@ -927,12 +928,19 @@ const sendEmail = async (e: React.FormEvent<HTMLFormElement>) => {
 <section className="relative z-10">
   <div className="mx-auto max-w-7xl px-6 md:px-8 md:pl-28">
     <SkillsCarousel />
-    <div className="mb-12">
+    <EducationExperienceSection />
+    <motion.div
+    className="mb-12"
+    initial={{ opacity: 0, y: 30 }}
+    whileInView={{ opacity: 1, y: 0 }}
+    viewport={{ once: true, amount: 0.2 }}
+    transition={{ duration: 1, ease: "easeOut" }}
+    >
   <p className="mb-3 text-sm uppercase tracking-[0.3em] text-white/40">
     Get In Touch
   </p>
   <h2 className="text-4xl text-white/95 md:text-5xl">Contact Me</h2>
-</div>
+</motion.div>
    <motion.section
   id="contact"
   className="mb-20 grid gap-8 rounded-[32px] border border-white/8 bg-white/[0.04] p-8 md:grid-cols-2"

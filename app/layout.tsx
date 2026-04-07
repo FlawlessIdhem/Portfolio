@@ -9,7 +9,7 @@ const playfair = Playfair_Display({
 });
 
 export const metadata = {
-  title: "Luxury Portfolio",
+  title: "El Mehdi Faris",
   description: "Modern luxury portfolio website",
 };
 
