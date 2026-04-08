@@ -3,11 +3,21 @@
 import CardSwap, { Card } from "@/components/CardSwap";
 import { GraduationCap, BriefcaseBusiness, BadgeCheck } from "lucide-react";
 import { motion } from "framer-motion";
+import { useEffect, useState } from "react";
 
 export default function EducationExperienceSection() {
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    const handleResize = () => setIsMobile(window.innerWidth < 768);
+    handleResize();
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
   return (
     
       <motion.section
+          id="journey"
           className="mx-auto max-w-7xl px-6 py-20 md:px-8"
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -58,12 +68,14 @@ export default function EducationExperienceSection() {
     </div>
   </div>
 
-  <div style={{ height: "600px", position: "relative" }}>
+  <div className="relative h-[480px] md:h-[600px] mt-10 md:mt-0">
     <CardSwap
-            cardDistance={60}
-            verticalDistance={70}
+            cardDistance={isMobile ? 35 : 60}
+            verticalDistance={isMobile ? 45 : 70}
             delay={5000}
             pauseOnHover
+            width={isMobile ? 300 : undefined}
+            height={isMobile ? 380 : undefined}
           >
             <Card className="rounded-[32px] border-white/20 p-0 text-white" style={{ backgroundColor: "#2e3a42" }}>
   <div className="flex h-full flex-col items-center text-center pt-2.5">
@@ -76,7 +88,7 @@ export default function EducationExperienceSection() {
   </div>
   <div className="mt-2 h-px w-full bg-white/100" />
 </div>
-    <div className="mt-12 space-y-6">
+    <div className="mt-8 md:mt-12 space-y-4 md:space-y-6">
       <div>
         <p className="text-sm text-white/45">2023</p>
         <h4 className="mt-2 text-xl text-white/95">
@@ -112,13 +124,13 @@ export default function EducationExperienceSection() {
   <div className="mt-2 h-px w-full bg-white/100" />
 </div>
 
-    <div className="mt-12">
+    <div className="mt-6 md:mt-12 px-4 md:px-0">
       <p className="text-sm text-white/45">2026 · 1 Month</p>
       <h4 className="mt-3 text-2xl text-white/95">
         Web Development Intern
       </h4>
       <p className="mt-2 text-sm text-white/60">Intelcia Intown - Casablanca</p>
-      <p className="mx-auto mt-5 max-w-md leading-7 text-white/55">
+      <p className="mx-auto mt-4 md:mt-5 max-w-md text-sm md:text-base leading-6 md:leading-7 text-white/55">
         Worked on the front-end integration and API liaison,
         connecting user interfaces with backend services to ensure smooth data flow,
         responsive interactions, and a consistent user experience.
@@ -139,13 +151,13 @@ export default function EducationExperienceSection() {
   <div className="mt-2 h-px w-full bg-white/100" />
 </div>
 
-    <div className="mt-12">
+    <div className="mt-6 md:mt-12 px-4 md:px-0">
       <p className="text-sm text-white/45">2026</p>
-      <h4 className="mt-3 text-2xl text-white/95">
+      <h4 className="mt-3 text-xl md:text-2xl text-white/95">
         Certified Fundamental Cybersecurity Partitionner
       </h4>
       <p className="mt-2 text-sm text-white/60">OFPPT</p>
-      <p className="mx-auto mt-5 max-w-md leading-7 text-white/55">
+      <p className="mx-auto mt-4 md:mt-5 max-w-md text-sm md:text-base leading-6 md:leading-7 text-white/55">
         Certified in fundamental cybersecurity principles,
         with knowledge of network security, threat awareness,
         risk management, and secure digital practices.

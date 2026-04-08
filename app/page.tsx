@@ -3,7 +3,7 @@
 import type { ReactNode } from "react";
 import { useRef, useState } from "react";
 import { motion } from "framer-motion";
-import { FaCss3Alt, FaHtml5, FaJs, FaLaravel, FaReact,FaGithub, FaLinkedinIn } from "react-icons/fa";
+import { FaCss3Alt, FaHtml5, FaJs, FaLaravel, FaReact,FaGithub, FaLinkedinIn, FaChevronLeft, FaChevronRight } from "react-icons/fa";
 import { HiOutlineMail } from "react-icons/hi";
 import { RiNextjsFill } from "react-icons/ri";
 import AnimatedButton from "@/components/AnimatedButton";
@@ -306,6 +306,28 @@ function ProjectsCarousel() {
       </div>
 
       <div className="relative mx-auto flex h-[560px] items-center justify-center overflow-hidden">
+        {/* Left Arrow for mobile */}
+        <button 
+          className="absolute left-0 z-40 md:hidden flex h-12 w-12 items-center justify-center rounded-full border border-white/10 bg-black/40 text-white/70 hover:bg-black/60 hover:text-white transition backdrop-blur-sm"
+          onClick={() => setActiveIndex(prev => {
+            let current = prev === null ? 0 : prev;
+            return current === 0 ? projects.length - 1 : current - 1;
+          })}
+        >
+          <FaChevronLeft size={16} />
+        </button>
+
+        {/* Right Arrow for mobile */}
+        <button 
+          className="absolute right-0 z-40 md:hidden flex h-12 w-12 items-center justify-center rounded-full border border-white/10 bg-black/40 text-white/70 hover:bg-black/60 hover:text-white transition backdrop-blur-sm"
+          onClick={() => setActiveIndex(prev => {
+            let current = prev === null ? 0 : prev;
+            return (current + 1) % projects.length;
+          })}
+        >
+          <FaChevronRight size={16} />
+        </button>
+
         {projects.map((project, index) => {
           let offset = activeIndex === null ? index : index - activeIndex;
 
@@ -739,6 +761,7 @@ export default function Home() {
   const formRef = useRef<HTMLFormElement>(null);
 const [sending, setSending] = useState(false);
 const [status, setStatus] = useState("");
+const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
 const sendEmail = async (e: React.FormEvent<HTMLFormElement>) => {
   e.preventDefault();
@@ -769,7 +792,7 @@ const sendEmail = async (e: React.FormEvent<HTMLFormElement>) => {
 };
   return (
     <main className="min-h-[calc(100vh/0.85)] overflow-x-hidden bg-transparent text-[var(--text-main)]">
-      <section className="relative h-[calc(100vh/0.85)] overflow-hidden">
+      <section className="relative min-h-[100vh] md:h-[calc(100vh/0.85)] md:min-h-0 overflow-hidden pb-10 md:pb-0">
         {/* Full first-screen rays */}
         <div className="absolute inset-0 z-[1]">
           <LightRays
@@ -826,7 +849,7 @@ const sendEmail = async (e: React.FormEvent<HTMLFormElement>) => {
         </div>
 
         {/* Content */}
-        <div className="relative z-10 mx-auto flex h-full max-w-7xl flex-col px-6 pt-8 md:px-8 md:pl-28">
+        <div className="relative z-10 mx-auto flex min-h-full h-auto md:h-full max-w-7xl flex-col px-6 pt-8 md:px-8 md:pl-28">
           <header className="mb-16 flex items-center justify-between">
             <Link href="/" className="flex items-center">
             <img
@@ -841,6 +864,7 @@ const sendEmail = async (e: React.FormEvent<HTMLFormElement>) => {
                 { label: "Home", href: "#home", active: true },
                 { label: "Projects", href: "#projects" },
                 { label: "Skills", href: "#skills" },
+                { label: "Journey", href: "#journey" },
                 { label: "Contact", href: "#contact" },
               ].map((item) => (
                 <a
@@ -860,10 +884,40 @@ const sendEmail = async (e: React.FormEvent<HTMLFormElement>) => {
               ))}
             </nav>
 
-            <a href="/cv.pdf" download>
-              <AnimatedButton text="Download CV" variant="ghost" />
-            </a>
+            <div className="flex items-center gap-4">
+              <a href="/cv.pdf" download>
+                <AnimatedButton text="Download CV" variant="ghost" />
+              </a>
+              <button 
+                className="flex md:hidden h-10 w-10 items-center justify-center rounded-full border border-white/10 bg-white/5 text-xl text-white/70 hover:bg-white/10 hover:text-white transition"
+                onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+              >
+                ☰
+              </button>
+            </div>
           </header>
+
+          {/* Mobile Menu */}
+          {isMobileMenuOpen && (
+            <div className="md:hidden absolute top-24 right-6 left-6 z-50 rounded-[28px] border border-white/10 bg-[#1e272e]/95 backdrop-blur-md p-6 flex flex-col gap-4 shadow-2xl overflow-hidden shadow-[0_30px_90px_rgba(0,0,0,0.4)]">
+              {[
+                { label: "Home", href: "#home" },
+                { label: "Projects", href: "#projects" },
+                { label: "Skills", href: "#skills" },
+                { label: "Journey", href: "#journey" },
+                { label: "Contact", href: "#contact" },
+              ].map((item) => (
+                <a
+                  key={item.label}
+                  href={item.href}
+                  className="text-white/80 text-center text-lg py-3 border-b border-white/5 last:border-0 hover:text-white transition"
+                  onClick={() => setIsMobileMenuOpen(false)}
+                >
+                  {item.label}
+                </a>
+              ))}
+            </div>
+          )}
 
           <section
             id="home"
@@ -903,22 +957,46 @@ const sendEmail = async (e: React.FormEvent<HTMLFormElement>) => {
               </div>
             </motion.div>
 
-            <div className="flex h-full items-end justify-center md:justify-end">
-            <div className="relative h-[460px] w-full max-w-[360px] md:h-[520px] md:max-w-[390px]">
-              <HeroRevealPortrait
-                baseImage="/me.png"
-                revealImage="/anony.png"
-              />
+            {/* Desktop original layout */}
+            <div className="hidden md:flex h-full items-end justify-center md:justify-end">
+              <div className="relative h-[460px] w-full max-w-[360px] md:h-[520px] md:max-w-[390px]">
+                <HeroRevealPortrait
+                  baseImage="/me.png"
+                  revealImage="/anony.png"
+                  revealImageClassName="!translate-y-[-7px]"
+                />
 
-              <div className="absolute bottom-[190px] left-1/3 h-px w-[480px] -translate-x-1/2 bg-white opacity-60" />
+                <div className="absolute bottom-[190px] left-1/3 h-px w-[480px] -translate-x-1/2 bg-white opacity-60" />
 
-              <img
-                src="/signature.png"
-                alt="Signature"
-                className="absolute bottom-[180px] left-1/2 w-[110px] -translate-x-[320px] opacity-50"
-              />
+                <img
+                  src="/signature.png"
+                  alt="Signature"
+                  className="absolute bottom-[180px] left-1/2 w-[110px] -translate-x-[320px] opacity-50"
+                />
+              </div>
             </div>
-          </div>
+
+            {/* Mobile stacked layout with dedicated spacing */}
+            <div className="flex md:hidden flex-col items-center justify-center pt-12 pb-16 w-full">
+              <div className="flex flex-col items-center gap-10 w-full max-w-full">
+                <HeroRevealPortrait
+                  baseImage="/me.png"
+                  revealImage="/anony.png"
+                  className="!relative !bottom-0 !left-0 !translate-x-0 w-[90%] max-w-[400px]"
+                  revealImageClassName="!translate-y-[-5px]"
+                />
+
+                <div className="flex flex-col items-center w-full mt-4">
+                  <div className="h-px w-[85%] bg-white opacity-60 mb-8" />
+
+                  <img
+                    src="/signature.png"
+                    alt="Signature"
+                    className="w-[130px] opacity-60"
+                  />
+                </div>
+              </div>
+            </div>
           </section>
         </div>
       </section>

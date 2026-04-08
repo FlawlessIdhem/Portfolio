@@ -6,6 +6,7 @@ type HeroRevealPortraitProps = {
   baseImage: string;
   revealImage: string;
   className?: string;
+  revealImageClassName?: string;
 };
 
 type Point = {
@@ -18,6 +19,7 @@ export default function HeroRevealPortrait({
   baseImage,
   revealImage,
   className = "",
+  revealImageClassName = "",
 }: HeroRevealPortraitProps) {
   const [trail, setTrail] = useState<Point[]>([]);
   const isHoveringRef = useRef(false);
@@ -105,7 +107,7 @@ export default function HeroRevealPortrait({
           <img
             src={revealImage}
             alt="Reveal portrait"
-            className="block h-full w-full -translate-y-2 scale-[1.1] select-none object-contain"
+            className={`block h-full w-full -translate-y-2 scale-[1.1] select-none object-contain ${revealImageClassName}`}
             draggable={false}
           />
         </div>

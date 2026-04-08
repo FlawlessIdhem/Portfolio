@@ -71,7 +71,7 @@ const CardSwap: React.FC<CardSwapProps> = ({
   height = 400,
   cardDistance = 60,
   verticalDistance = 70,
-  delay = 5000,
+  delay = 3000,
   pauseOnHover = false,
   onCardClick,
   skewAmount = 6,
@@ -209,7 +209,7 @@ const CardSwap: React.FC<CardSwapProps> = ({
   return (
     <div
       ref={container}
-      className="absolute right-0 transform translate-x-[34%] translate-y-[20%]  perspective-[900px] overflow-visible"
+      className="absolute right-1/2 md:right-0 transform translate-x-1/2 md:translate-x-[34%] translate-y-[10%] md:translate-y-[20%] perspective-[900px] overflow-visible"
       style={{ width, height }}
     >
       {rendered}
