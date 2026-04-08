@@ -768,8 +768,8 @@ const sendEmail = async (e: React.FormEvent<HTMLFormElement>) => {
   }
 };
   return (
-    <main className="min-h-screen overflow-x-hidden bg-transparent text-[var(--text-main)]">
-      <section className="relative h-screen overflow-hidden">
+    <main className="min-h-[calc(100vh/0.85)] overflow-x-hidden bg-transparent text-[var(--text-main)]">
+      <section className="relative h-[calc(100vh/0.85)] overflow-hidden">
         {/* Full first-screen rays */}
         <div className="absolute inset-0 z-[1]">
           <LightRays
@@ -790,7 +790,7 @@ const sendEmail = async (e: React.FormEvent<HTMLFormElement>) => {
         </div>
 
         {/* Left bar */}
-        <div className="absolute left-0 top-0 z-20 hidden h-screen w-[72px] border-r border-white/5 bg-white/5 md:block">
+        <div className="absolute left-0 top-0 z-20 hidden h-[calc(100vh/0.85)] w-[72px] border-r border-white/5 bg-white/5 md:block">
           <div className="flex h-16 items-center justify-center border-b border-white/5 text-xl text-white/70">
             ☰
           </div>
