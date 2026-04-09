@@ -35,12 +35,17 @@ export default function AnimatedButton({
   const classes = `animated-btn animated-btn--${variant} ${className}`;
 
   if (href) {
-    return (
-      <a href={href} className={classes}>
-        {content}
-      </a>
-    );
-  }
+  return (
+    <a
+      href={href}
+      target="_blank"
+      rel="noreferrer"
+      className={classes}
+    >
+      {content}
+    </a>
+  );
+}
 
   return (
     <button type={type} onClick={onClick} className={classes}>
