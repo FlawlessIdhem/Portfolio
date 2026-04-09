@@ -44,7 +44,7 @@ type Skill = {
     description: "A modern 3d design e-commerce website.",
     logo: "/projects/Adidas.png",
     slug: "Adidas",
-    liveUrl: "https://3d-design-website.vercel.app/",
+    liveUrl: "https://3d-design-web.vercel.app/",
   },
   {
     title: "AC Casablanca",
