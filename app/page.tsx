@@ -36,7 +36,7 @@ type Skill = {
     description: "A project with a bold visual identity and immersive direction.",
     logo: "/projects/Lost.png",
     slug: "lost",
-    liveUrl: "https://example.com/coming-soon",
+    liveUrl: "https://lost.kesug.com/",
   },
   {
     title: "Adidas",
@@ -44,7 +44,7 @@ type Skill = {
     description: "A modern 3d design e-commerce website.",
     logo: "/projects/Adidas.png",
     slug: "Adidas",
-    liveUrl: "https://3d-design-web.vercel.app/",
+    liveUrl: "https://modern-3d-website-nu.vercel.app/",
   },
   {
     title: "AC Casablanca",
