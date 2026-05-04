@@ -131,9 +131,9 @@ export default function EducationExperienceSection() {
       </h4>
       <p className="mt-2 text-sm text-white/60">Intelcia Intown - Casablanca</p>
       <p className="mx-auto mt-4 md:mt-5 max-w-md text-sm md:text-base leading-6 md:leading-7 text-white/55">
-        Worked on the front-end integration and API liaison,
-        connecting user interfaces with backend services to ensure smooth data flow,
-        responsive interactions, and a consistent user experience.
+        Worked on front-end development and implemented
+        OAuth authentication to enhance secure
+        user access and user experience.
       </p>
     </div>
   </div>
