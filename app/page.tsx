@@ -36,7 +36,7 @@ type Skill = {
     description: "A project with a bold visual identity and immersive direction.",
     logo: "/projects/Lost.png",
     slug: "lost",
-    liveUrl: "https://lost.kesug.com/",
+    liveUrl: "https://lostgame.unaux.com/",
   },
   {
     title: "Adidas",
@@ -825,7 +825,7 @@ const sendEmail = async (e: React.FormEvent<HTMLFormElement>) => {
 
           <div className="absolute bottom-10 left-1/2 flex -translate-x-1/2 flex-col items-center gap-4">
             <a
-              href="https://linkedin.com/in/your-linkedin"
+              href="linkedin.com/in/mehdi-faris"
               target="_blank"
               rel="noreferrer"
               className="flex h-10 w-10 items-center justify-center rounded-full border border-white/10 bg-white/5 text-white/65 transition hover:bg-white/10 hover:text-white"
