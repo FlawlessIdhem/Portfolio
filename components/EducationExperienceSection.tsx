@@ -53,7 +53,7 @@ export default function EducationExperienceSection() {
       </div>
 
       <div className="border-l border-white/10 pl-5">
-        <p className="text-3xl text-white/95">1</p>
+        <p className="text-3xl text-white/95">2</p>
         <p className="mt-1 text-sm text-white/45">
           Internship experience
         </p>
@@ -121,19 +121,28 @@ export default function EducationExperienceSection() {
       Internship
     </h3>
   </div>
-  <div className="mt-2 h-px w-full bg-white/100" />
+  <div className="mt-0 h-px w-full bg-white/100" />
 </div>
 
-    <div className="mt-6 md:mt-12 px-4 md:px-0">
-      <p className="text-sm text-white/45">2026 · 1 Month</p>
-      <h4 className="mt-3 text-2xl text-white/95">
+    <div className="mt-0 md:mt-4 px-4 md:px-0">
+      <h4 className="text-2xl text-white/95">
         Web Development Intern
       </h4>
-      <p className="mt-2 text-sm text-white/60">Intelcia Intown - Casablanca</p>
+      <p className="mt-2 text-sm text-white/60">Intelcia Intown - Casablanca - 2026 · 1 Month</p>
       <p className="mx-auto mt-4 md:mt-5 max-w-md text-sm md:text-base leading-6 md:leading-7 text-white/55">
         Worked on front-end development and implemented
         OAuth authentication to enhance secure
         user access and user experience.
+      </p>
+
+      <h4 className="mt-3 text-2xl text-white/95">
+        Web Development Intern
+      </h4>
+      <p className="mt-2 text-sm text-white/60">Afrim - Casablanca - 2026 · 2 Months</p>
+      <p className="mx-auto mt-4 md:mt-5 max-w-md text-sm md:text-base leading-6 md:leading-7 text-white/55">
+        Developed an Employee Management System to
+        add, edit, delete, and manage employee information
+        using a web application and MySQL database.
       </p>
     </div>
   </div>
